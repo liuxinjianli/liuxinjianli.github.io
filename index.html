@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刘鑫 · 个人简历</title>
+<meta name="description" content="刘鑫的个人简历：AI训练师 / 数据标注 / AI视频方向应届毕业生，独立完成通用对话AI训练、图像标注、AI短视频、大模型横向评测四个项目。">
+<style>
+  :root{
+    --ink:#1a1a18; --sub:#5c5c56; --line:#e3e3dc; --accent:#33475b; --accent-soft:#eef1f4;
+    --bg:#f7f7f4; --paper:#ffffff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC",-apple-system,"Segoe UI",sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.75; font-size:15.5px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{max-width:780px;margin:0 auto;background:var(--paper);padding:56px 52px 64px;min-height:100vh;}
+  /* 头部 */
+  header{border-bottom:2px solid var(--ink);padding-bottom:26px;}
+  h1{font-size:34px;letter-spacing:.14em;font-weight:700;}
+  .role{margin-top:8px;font-size:16px;color:var(--accent);letter-spacing:.06em;font-weight:600;}
+  .meta{margin-top:16px;display:flex;flex-wrap:wrap;gap:6px 22px;color:var(--sub);font-size:14px;}
+  .meta a{color:var(--accent);text-decoration:none;font-weight:600;}
+  .copy-btn{
+    margin-left:8px;border:1px solid var(--line);background:#fff;color:var(--sub);
+    font-size:12px;padding:1px 9px;border-radius:999px;cursor:pointer;vertical-align:1px;
+  }
+  .copy-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .intro{margin-top:20px;color:#33322e;font-size:15.5px;max-width:42em;}
+  /* 区块 */
+  section{margin-top:38px;}
+  h2{
+    font-size:13px;letter-spacing:.34em;color:var(--accent);font-weight:700;
+    border-bottom:1px solid var(--line);padding-bottom:9px;margin-bottom:20px;
+  }
+  h2 span{color:var(--sub);letter-spacing:.1em;font-weight:400;margin-left:10px;font-size:12px;}
+  .intent{display:flex;flex-wrap:wrap;gap:8px;}
+  .intent li{list-style:none;border:1px solid var(--line);border-radius:999px;padding:4px 14px;font-size:13.5px;color:#33322e;}
+  .intent li.first{border-color:var(--accent);color:var(--accent);font-weight:600;background:var(--accent-soft);}
+  /* 项目 */
+  .project{padding:20px 0 22px;border-bottom:1px solid var(--line);}
+  .project:last-child{border-bottom:none;}
+  .p-head{display:flex;align-items:baseline;gap:14px;}
+  .p-no{font-size:13px;color:var(--sub);letter-spacing:.15em;font-weight:600;}
+  .p-title{font-size:18.5px;font-weight:700;letter-spacing:.02em;}
+  .p-tag{font-size:12px;color:var(--sub);border:1px solid var(--line);border-radius:999px;padding:0 9px;line-height:1.9;}
+  .p-body{margin-top:10px;color:#33322e;}
+  .p-body b{color:var(--ink);}
+  .stats{display:flex;flex-wrap:wrap;margin-top:14px;border-top:1px dashed var(--line);}
+  .stat{flex:1 1 120px;padding:10px 14px 2px 0;}
+  .stat .num{font-size:21px;font-weight:700;color:var(--accent);letter-spacing:.01em;}
+  .stat .lab{font-size:12.5px;color:var(--sub);}
+  /* 评分条 */
+  .scores{margin-top:14px;max-width:460px;}
+  .score{display:flex;align-items:center;gap:12px;margin-top:7px;font-size:13.5px;}
+  .score .name{width:5.5em;color:#33322e;}
+  .score .bar{flex:1;height:5px;background:var(--accent-soft);border-radius:99px;overflow:hidden;}
+  .score .fill{height:100%;background:var(--accent);border-radius:99px;}
+  .score .val{width:2.6em;text-align:right;font-weight:700;color:var(--accent);}
+  /* 经历与技能 */
+  .row{display:flex;gap:18px;padding:9px 0;border-bottom:1px solid var(--line);}
+  .row:last-child{border-bottom:none;}
+  .row .k{flex:0 0 9.5em;font-weight:600;}
+  .row .v{color:#33322e;}
+  .skills{display:flex;flex-wrap:wrap;gap:8px;}
+  .skills li{list-style:none;background:var(--accent-soft);border-radius:6px;padding:4px 12px;font-size:13.5px;color:#2c3540;}
+  footer{margin-top:46px;border-top:1px solid var(--line);padding-top:16px;color:var(--sub);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  @media (max-width:640px){
+    .page{padding:36px 22px 48px;}
+    h1{font-size:28px;}
+    .row{flex-direction:column;gap:2px;}
+    .row .k{flex:none;}
+  }
+  @media (prefers-color-scheme:dark){
+    :root{--ink:#eceae4;--sub:#a3a29a;--line:#33332e;--accent:#9db4cc;--accent-soft:#232a33;--bg:#131311;--paper:#1b1b19;}
+    .intro,.p-body,.row .v{color:#cfcdc6;}
+    .copy-btn{background:transparent;}
+    .intent li{color:#cfcdc6;}
+    .skills li{color:#cfd8e2;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <h1>刘 鑫</h1>
+    <div class="role">AI 训练师 · 数据标注 · AI 视频方向</div>
+    <div class="meta">
+      <span>电话 <a href="tel:19209664469">19209664469</a><button class="copy-btn" id="copyBtn" type="button">复制</button></span>
+      <span>广州 · 白云区嘉禾望岗</span>
+      <span>湖南高速铁路职业技术学院</span>
+    </div>
+    <p class="intro">全日制大专应届毕业生，有电子厂实习与跨境物流从业经历。独立完整做过四个 AI 个人项目，覆盖对话数据训练、图像标注、AI 短视频制作与大模型横向评测，求职方向以 AI 岗位优先。</p>
+  </header>
+
+  <section>
+    <h2>求职意向<span>INTENT</span></h2>
+    <ul class="intent">
+      <li class="first">AI 训练师</li>
+      <li class="first">数据标注</li>
+      <li class="first">AI 视频 / 剪辑</li>
+      <li>跨境电商助理</li>
+      <li>国内电商助理</li>
+      <li>运营助理</li>
+      <li>工作地点：广州</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>个人项目<span>PROJECTS</span></h2>
+
+    <article class="project">
+      <div class="p-head"><span class="p-no">01</span><span class="p-title">通用对话 AI 训练小项目</span><span class="p-tag">个人项目</span></div>
+      <p class="p-body">按真实 AI 训练流程独立完成：制定标注手册与角色规则，构建 <b>60 条</b>通用问答数据（合格 53 条、需修改 7 条、不合格 0 条）；用 15 个新问题做有无规则的前后对比，有规则版更好 14 组；对模型回答逐条打分并改进最差的 8 条后复测验证。</p>
+      <div class="stats">
+        <div class="stat"><div class="num">60 条</div><div class="lab">问答数据</div></div>
+        <div class="stat"><div class="num">5.2 → 8.7</div><div class="lab">规则前后平均分</div></div>
+        <div class="stat"><div class="num">15 组</div><div class="lab">新问题前后对比</div></div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="p-head"><span class="p-no">02</span><span class="p-title">图像标注小项目</span><span class="p-tag">个人项目</span></div>
+      <p class="p-body">先定标注规范（整图分类 8 个标签、框选车辆 / 招牌 / 交通信号灯 3 类），再完成 50 张街景图的标注；随后自抽 14 张质检，查出漏框、误框、框不贴边等问题并逐一修正，形成完整的「规范 — 标注 — 质检」闭环。</p>
+      <div class="stats">
+        <div class="stat"><div class="num">50 张</div><div class="lab">标注图片</div></div>
+        <div class="stat"><div class="num">438 个</div><div class="lab">标注框（车辆 375 · 招牌 50 · 信号灯 13）</div></div>
+        <div class="stat"><div class="num">14 张</div><div class="lab">抽检质检</div></div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="p-head"><span class="p-no">03</span><span class="p-title">AI 短视频全流程小项目</span><span class="p-tag">个人项目</span></div>
+      <p class="p-body">独立走完选题、脚本、分镜、画面生成、剪辑、配音、配乐、字幕全流程，成片《广州，慢慢入夜》（竖屏 44.5 秒）：以本人实拍的广州照片为蓝本生成 8 个镜头，配开源粤语 TTS 解说与免版权钢琴曲，最终定稿为粤语腔版。</p>
+      <div class="stats">
+        <div class="stat"><div class="num">44.5 秒</div><div class="lab">竖屏成片</div></div>
+        <div class="stat"><div class="num">8 个</div><div class="lab">分镜镜头</div></div>
+        <div class="stat"><div class="num">全流程</div><div class="lab">脚本至成片独立完成</div></div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="p-head"><span class="p-no">04</span><span class="p-title">大模型横向评测小项目</span><span class="p-tag">个人项目</span></div>
+      <p class="p-body">以 AI 训练师、大模型评测岗位的实际工作方式，独立完成一次完整评测：自研 <b>20 道题</b>题库，覆盖常识与事实、逻辑推理、文案写作、改写与摘要、指令遵循、多轮对话六个维度，每道题预设标准答案与判定要点；制定四维评分标准（1–5 分），事实硬伤单独标记；统一执行实测、回答全文留档、逐题打分，输出评分表与结论报告。对文心一言完成 20 题全量实测：逻辑推理全满分，常识题对答如流且自动联网核查；文案能用但指令遵循偏弱，曾出现要求一条却给出四条、摘要超字数并自行添加原文没有的信息；多轮对话中预设规则 3 道仅守住 1 道，是其明显短板。全程<b>零事实错误</b>。</p>
+      <div class="scores">
+        <div class="score"><span class="name">逻辑性</span><span class="bar"><span class="fill" style="width:100%"></span></span><span class="val">5.00</span></div>
+        <div class="score"><span class="name">准确性</span><span class="bar"><span class="fill" style="width:90.6%"></span></span><span class="val">4.53</span></div>
+        <div class="score"><span class="name">文案质量</span><span class="bar"><span class="fill" style="width:77.2%"></span></span><span class="val">3.86</span></div>
+        <div class="score"><span class="name">指令遵循</span><span class="bar"><span class="fill" style="width:73.4%"></span></span><span class="val">3.67</span></div>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="num">20 道</div><div class="lab">自研题库（六维度）</div></div>
+        <div class="stat"><div class="num">0 次</div><div class="lab">事实错误</div></div>
+        <div class="stat"><div class="num">1 / 3</div><div class="lab">多轮规则守住题数</div></div>
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>实习与工作经历<span>EXPERIENCE</span></h2>
+    <div class="row"><div class="k">深南电路</div><div class="v">实习经历</div></div>
+    <div class="row"><div class="k">深圳跨境物流</div><div class="v">跨境物流从业经历</div></div>
+  </section>
+
+  <section>
+    <h2>教育背景<span>EDUCATION</span></h2>
+    <div class="row"><div class="k">2023 – 2026</div><div class="v">湖南高速铁路职业技术学院 · 铁道机车运用与维护 · 全日制大专</div></div>
+  </section>
+
+  <section>
+    <h2>技能与证书<span>SKILLS</span></h2>
+    <ul class="skills">
+      <li>Office 基础应用</li>
+      <li>AI 工具基础应用</li>
+      <li>AI 剪辑</li>
+      <li>日语 N3</li>
+      <li>摄影 / 航拍</li>
+      <li>C1 驾照</li>
+    </ul>
+  </section>
+
+  <footer>
+    <span>刘鑫 · 个人简历</span>
+    <span>电话 19209664469 · 广州</span>
+  </footer>
+
+</div>
+<script>
+  document.getElementById('copyBtn').addEventListener('click', function(){
+    var btn = this;
+    function done(){ btn.textContent = '已复制'; setTimeout(function(){ btn.textContent = '复制'; }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText('19209664469').then(done).catch(done);
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = '19209664469'; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch(e) {}
+      document.body.removeChild(ta); done();
+    }
+  });
+</script>
+</body>
+</html>
