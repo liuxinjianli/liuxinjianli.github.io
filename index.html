@@ -122,6 +122,15 @@
     margin-top:var(--space-m); padding-top:var(--space-s);
     border-top:0.0625rem dashed var(--line);
   }
+  /* 项目详情入口（如 05 号作品集页） */
+  .p-link{ margin:var(--space-m) 0 0; font-size:var(--step--1); font-weight:600; }
+  .p-link a{
+    text-decoration:none; color:var(--accent);
+    border-bottom:0.0625em solid currentColor; padding-bottom:0.1em;
+    transition:color .25s, transform .25s var(--ease-elastic);
+    display:inline-block;
+  }
+  .p-link a:hover{ transform:translateX(0.25rem); }
   .stat .num{ font-size:var(--step-2); font-weight:700; color:var(--accent); line-height:1.35; }
   .stat .lab{ font-size:var(--step--1); color:var(--sub); }
   /* 评分条 */
@@ -311,6 +320,7 @@
           <div class="stat"><div class="num">12 个</div><div class="lab">英文分级话术模板</div></div>
           <div class="stat"><div class="num">7 行</div><div class="lab">看板模拟数据验算通过</div></div>
         </div>
+        <p class="p-link"><a href="portfolio.html">查看完整作品集 →</a></p>
       </article>
     </section>
 

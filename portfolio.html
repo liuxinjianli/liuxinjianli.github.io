@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>跨境电商助理实战作品集（Amazon US 站点）· 刘鑫</title>
+<meta name="description" content="刘鑫的跨境电商助理实战作品集：AI Listing 本地化与 SEO、Excel 运营与库存预警看板、竞品差评分析与客服 SOP，构成售前—售中—售后运营全闭环。个人实战练习项目，模拟选品与模拟数据。">
+<style>
+  /* ============ 设计变量与字阶系统（与简历站 index.html 完全一致） ============ */
+  :root{
+    --ink:#1a1a18; --sub:#5c5c56; --line:#e3e3dc; --accent:#33475b; --accent-soft:#eef1f4;
+    --bg:#f7f7f4; --paper:#ffffff;
+    --step--1:0.8rem;   /* 12.8px 小字/标签 */
+    --step-0:1rem;      /* 16px 正文 */
+    --step-1:1.25rem;   /* 20px 小标题 */
+    --step-2:1.563rem;  /* 25px */
+    --step-3:1.953rem;  /* 31px */
+    --step-4:2.441rem;  /* 39px 主标题 h1 */
+    --space-xs:0.5rem; --space-s:0.75rem; --space-m:1rem; --space-l:1.5rem;
+    --space-xl:2.5rem; --space-2xl:3.5rem;
+    --ease-elastic:cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  *,*::before,*::after{ box-sizing:border-box; }
+  body{
+    margin:0;
+    font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC",-apple-system,"Segoe UI",sans-serif;
+    background:var(--bg); color:var(--ink);
+    font-size:var(--step-0); line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{
+    display:flow-root;
+    max-width:52rem; margin-inline:auto;
+    background:var(--paper); min-height:100vh;
+    padding:var(--space-xl) var(--space-l) var(--space-2xl);
+  }
+  a{ color:var(--accent); }
+  :focus-visible{ outline:0.1875rem solid var(--accent); outline-offset:0.125rem; border-radius:0.25rem; }
+
+  /* ============ 页首（全页唯一 h1） ============ */
+  .site-header{ border-bottom:0.125rem solid var(--ink); padding-bottom:var(--space-l); }
+  .back-link{ display:inline-block; font-size:var(--step--1); font-weight:600; text-decoration:none; margin-bottom:var(--space-m); }
+  .back-link:hover{ text-decoration:underline; }
+  h1{ font-size:var(--step-3); font-weight:700; margin:0; line-height:1.35; letter-spacing:0.02em; }
+  .subtitle{ margin-top:var(--space-xs); font-size:var(--step-1); color:var(--accent); font-weight:600; letter-spacing:0.04em; }
+  .tags{ margin:var(--space-m) 0 0; padding:0; list-style:none; display:flex; flex-wrap:wrap; gap:var(--space-xs); }
+  .tags li{
+    border:0.0625em solid var(--accent); color:var(--accent); font-weight:600; background:var(--accent-soft);
+    border-radius:999em; padding:0.3em 1em; font-size:var(--step--1);
+  }
+  .positioning{ margin:var(--space-m) 0 0; max-width:44em; color:#33322e; }
+  .honest{
+    margin-top:var(--space-m); background:var(--accent-soft); border-radius:0.75em;
+    padding:1em 1.25em; color:#2c3540; font-size:var(--step--1); line-height:1.7;
+  }
+  .honest strong{ color:var(--accent); }
+
+  /* ============ 章节导航 ============ */
+  .site-nav{ margin-top:var(--space-l); }
+  .site-nav ul{ margin:0; padding:0; list-style:none; display:flex; flex-wrap:wrap; gap:var(--space-xs); }
+  .site-nav a{
+    display:inline-block; text-decoration:none; color:var(--sub);
+    font-size:var(--step--1); font-weight:600;
+    border:0.0625em solid var(--line); border-radius:999em; padding:0.3em 1em;
+    transition:color .25s var(--ease-elastic), border-color .25s, transform .25s var(--ease-elastic);
+  }
+  .site-nav a:hover{ color:var(--accent); transform:translateY(-0.125rem); }
+  .site-nav a[aria-current="true"]{ color:var(--accent); border-color:currentColor; background:var(--accent-soft); }
+
+  /* ============ 章节与标题阶梯 ============ */
+  main section{ display:flow-root; margin-top:var(--space-xl); }
+  h2{
+    font-size:var(--step--1); letter-spacing:0.2em; color:var(--accent); font-weight:700;
+    border-bottom:0.0625rem solid var(--line);
+    padding-bottom:var(--space-xs); margin:0 0 var(--space-m);
+  }
+  h2 .en{ color:var(--sub); letter-spacing:0.1em; font-weight:400; margin-left:0.625rem; }
+  h3{ font-size:var(--step-1); font-weight:700; letter-spacing:0.02em; margin:var(--space-l) 0 var(--space-xs); line-height:1.4; }
+  h3:first-of-type{ margin-top:var(--space-m); }
+  p{ margin:var(--space-xs) 0 0; color:#33322e; }
+  ul,ol{ margin:var(--space-xs) 0 0; padding-left:1.4em; color:#33322e; }
+  li{ margin-top:0.25em; }
+  strong{ color:var(--ink); }
+
+  /* 引用块：Listing 成果、英文模板 */
+  blockquote{
+    margin:var(--space-s) 0 0; padding:0.8em 1.1em;
+    background:var(--accent-soft); border-left:0.25rem solid var(--accent); border-radius:0 0.5em 0.5em 0;
+    color:#2c3540;
+  }
+  blockquote p{ margin:0; color:inherit; }
+  blockquote p + p{ margin-top:var(--space-xs); }
+  .note{ font-size:var(--step--1); color:var(--sub); margin-top:var(--space-s); }
+
+  /* 代码块：Prompt、公式、流程图 */
+  pre{
+    margin:var(--space-s) 0 0; padding:1em 1.1em;
+    background:#22251f; color:#e8e6df; border-radius:0.5em;
+    font-family:"SF Mono","Cascadia Code",Consolas,"Courier New",monospace;
+    font-size:var(--step--1); line-height:1.65;
+    overflow-x:auto; white-space:pre;
+  }
+  pre.flow{ background:var(--accent-soft); color:var(--accent); font-weight:600; }
+  code{ font-family:"SF Mono","Cascadia Code",Consolas,"Courier New",monospace; font-size:0.92em; }
+
+  /* 表格：横向可滚动容器兜底移动端 */
+  .table-wrap{ overflow-x:auto; margin-top:var(--space-s); }
+  table{ border-collapse:collapse; width:100%; font-size:var(--step--1); line-height:1.6; }
+  th,td{ border:0.0625rem solid var(--line); padding:0.5em 0.8em; text-align:left; vertical-align:top; }
+  th{ background:var(--accent-soft); color:var(--accent); font-weight:700; white-space:nowrap; }
+  td.num{ text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+
+  /* 闭环流程：三段卡片 + 回流说明 */
+  .loop{ display:grid; gap:var(--space-s); margin-top:var(--space-m); }
+  .loop-card{
+    border:0.0625rem solid var(--line); border-radius:0.75em; padding:1em 1.1em;
+  }
+  .loop-card .lc-tag{ font-size:var(--step--1); color:var(--accent); font-weight:700; letter-spacing:0.15em; }
+  .loop-card .lc-name{ font-size:var(--step-1); font-weight:700; margin-top:0.15em; }
+  .loop-card .lc-desc{ font-size:var(--step--1); color:var(--sub); }
+  .loop-arrow{ text-align:center; color:var(--accent); font-weight:700; line-height:1; }
+  .loop-back{
+    border:0.0625rem dashed var(--accent); border-radius:0.75em; padding:0.8em 1.1em;
+    font-size:var(--step--1); color:#2c3540; background:var(--accent-soft);
+  }
+
+  /* 产品图画廊 */
+  .gallery{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 9.5rem), 1fr));
+    gap:var(--space-s); margin-top:var(--space-m); padding:0; list-style:none;
+  }
+  .gallery figure{ margin:0; }
+  .gallery button{
+    display:block; width:100%; padding:0; border:0.0625rem solid var(--line); border-radius:0.75em;
+    background:var(--paper); cursor:pointer; overflow:hidden;
+    transition:transform .25s var(--ease-elastic), border-color .25s;
+  }
+  .gallery button:hover{ transform:translateY(-0.125rem); border-color:var(--accent); }
+  .gallery img{ display:block; width:100%; height:auto; aspect-ratio:1/1; object-fit:cover; }
+  .gallery figcaption{ margin-top:0.35em; font-size:var(--step--1); color:var(--sub); text-align:center; }
+
+  /* 产品视频播放器 */
+  .p-video{ margin:var(--space-m) 0 0; max-width:20rem; }
+  .p-video video{
+    display:block; width:100%; height:auto; aspect-ratio:9/16;
+    border:0.0625rem solid var(--line); border-radius:0.75em; background:#000;
+  }
+  .p-video figcaption{ margin-top:var(--space-xs); font-size:var(--step--1); color:var(--sub); }
+
+  /* 灯箱 */
+  .lightbox{
+    position:fixed; inset:0; z-index:50; display:none;
+    align-items:center; justify-content:center; padding:var(--space-l);
+    background:rgba(10,10,8,0.88);
+  }
+  .lightbox.open{ display:flex; }
+  .lightbox img{ max-width:100%; max-height:88vh; border-radius:0.5em; background:#fff; }
+  .lightbox .lb-cap{
+    position:absolute; left:0; right:0; bottom:var(--space-l);
+    text-align:center; color:#f0efe9; font-size:var(--step--1);
+  }
+  .lightbox .lb-close{
+    position:absolute; top:var(--space-m); right:var(--space-m);
+    width:2.6rem; height:2.6rem; border-radius:50%; border:0.0625rem solid currentColor;
+    background:transparent; color:#f0efe9; font-size:1.2rem; cursor:pointer; line-height:1;
+  }
+
+  /* ============ 页脚 ============ */
+  .site-footer{
+    margin-top:var(--space-xl); border-top:0.0625rem solid var(--line);
+    padding-top:var(--space-m); color:var(--sub); font-size:var(--step--1);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:var(--space-xs) var(--space-m);
+  }
+  .site-footer address{ font-style:normal; }
+
+  /* ============ 平板 / 桌面增强 ============ */
+  @media (min-width:40rem){
+    .page{ padding:var(--space-2xl) var(--space-xl) var(--space-2xl); }
+    .loop{ grid-template-columns:1fr auto 1fr auto 1fr; align-items:stretch; }
+    .loop-arrow{ align-self:center; transform:rotate(0deg); }
+    .loop-back{ grid-column:1 / -1; }
+  }
+  @media (min-width:64rem){
+    .page{ padding-inline:var(--space-2xl); }
+    h1{ font-size:var(--step-4); }
+    .site-nav{ position:sticky; top:0; background:var(--paper); padding-block:var(--space-xs); z-index:10; }
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{ transition:none !important; }
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --ink:#eceae4; --sub:#a3a29a; --line:#33332e; --accent:#9db4cc; --accent-soft:#232a33; --bg:#131311; --paper:#1b1b19; }
+    p,ul,ol,.positioning{ color:#cfcdc6; }
+    .honest,.loop-back,blockquote{ color:#cfd8e2; }
+    pre{ background:#101210; }
+    pre.flow{ background:var(--accent-soft); }
+    .gallery button{ background:transparent; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="site-header">
+    <a class="back-link" href="index.html">← 返回简历</a>
+    <h1>跨境电商助理实战作品集（Amazon US 站点）</h1>
+    <p class="subtitle">AI 提效、数据监控与客服 SOP 闭环实践</p>
+    <ul class="tags">
+      <li>AI Prompt 调教</li>
+      <li>Amazon SEO</li>
+      <li>Excel 公式预警</li>
+      <li>客诉 SOP &amp; 选品反哺</li>
+    </ul>
+    <p class="positioning"><strong>个人定位：</strong>求职者 <strong>刘鑫</strong>，应聘跨境电商助理；全日制大专应届生。技能关键词：AI 工具基础应用、Office、摄影、日语 N3、C1 驾照。</p>
+    <p class="honest"><strong>如实说明：本作品集为个人实战练习项目，产品为模拟选品、数据为模拟数据，方法与流程均按真实运营标准执行。</strong>文中涉及的产品参数为同类产品常见规格<strong>示意值</strong>，正式上架前须以实物实测值替换。</p>
+    <nav class="site-nav" aria-label="章节导航">
+      <ul>
+        <li><a href="#loop">闭环逻辑</a></li>
+        <li><a href="#module1">模块 1 · 售前</a></li>
+        <li><a href="#module2">模块 2 · 售中</a></li>
+        <li><a href="#module3">模块 3 · 售后</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ================= 模块 0 ================= -->
+    <section id="loop" aria-labelledby="loop-title">
+      <h2 id="loop-title">模块 0 ｜ 作品集核心逻辑<span class="en">THE LOOP</span></h2>
+      <p>三个项目不是孤立的练习，而是按真实店铺运营的先后顺序咬合的一条链：</p>
+      <ul>
+        <li><strong>售前（项目一）</strong>先把商品“卖出去的前提”做好：用 AI 工作流按 Amazon US 规范产出 Listing，让关键词布局、字符合规、英文表达在上架前就一次到位；</li>
+        <li><strong>售中（项目二）</strong>再把“卖的过程”盯住：每日销售、广告、库存数据进一张 Excel 看板，公式自动算 ACOS、盈亏线、可售天数，异常当天就以风险标签的形式跳出来；</li>
+        <li><strong>售后（项目三）</strong>最后把“卖完之后的反馈”用起来：竞品差评先归因，再沉淀为分级客服话术，而归因结论不止于处理客诉，还要<strong>反哺回售前和售中</strong>——差评里暴露的主图没讲清、说明书看不懂，反过来改主图和说明书；风险标签里频繁出现的断货、广告超标，反过来调整库存与广告策略。闭环转起来，同一批问题就不会重复发生。</li>
+      </ul>
+      <div class="loop" role="img" aria-label="闭环图谱：售前 Listing 打造到售中数据监控，再到售后客诉与选品反哺，差评归因与风险信号分别回流售前与售中">
+        <div class="loop-card">
+          <div class="lc-tag">售前 · 项目一</div>
+          <div class="lc-name">AI Listing 本地化与 SEO 矩阵</div>
+          <div class="lc-desc">关键词布局 · 字符合规 · 英文本地化</div>
+        </div>
+        <div class="loop-arrow" aria-hidden="true">→</div>
+        <div class="loop-card">
+          <div class="lc-tag">售中 · 项目二</div>
+          <div class="lc-name">Excel 数据监控看板</div>
+          <div class="lc-desc">公式计算 · 条件格式预警 · 风险标签</div>
+        </div>
+        <div class="loop-arrow" aria-hidden="true">→</div>
+        <div class="loop-card">
+          <div class="lc-tag">售后 · 项目三</div>
+          <div class="lc-name">差评归因 + 分级客服 SOP</div>
+          <div class="lc-desc">归因分析 · 分级话术 · 选品反哺清单</div>
+        </div>
+        <p class="loop-back"><strong>回流一（售后 → 售前）：</strong>差评归因回流——主图对比图、说明书、卖点表达改进；<strong>回流二（售后 / 售中互通）：</strong>风险信号回流——断货、广告超标标签触发库存与广告策略调整。</p>
+      </div>
+      <pre class="flow" aria-hidden="true">售前 Listing 打造 ──▶ 售中数据监控 ──▶ 售后客诉与选品反哺
+        ▲                                        │
+        └────── 差评归因 / 风险信号回流改进 ◀──────┘</pre>
+    </section>
+
+    <!-- ================= 模块 1 ================= -->
+    <section id="module1" aria-labelledby="module1-title">
+      <h2 id="module1-title">模块 1 ｜ 售前 · AI 驱动的 Listing 本地化与 SEO 矩阵<span class="en">PRE-SALE</span></h2>
+      <p>产品：便携手机三脚架自拍杆（一体式，黑色）｜ 类目判定：手机配件实体类目，<strong>适用 75 字符标题新规</strong>；无自有品牌、无第三方商标涉及，标题按无品牌处理。</p>
+
+      <h3>1.1 关键词分类矩阵</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">词类</th><th scope="col">热度*</th><th scope="col">关键词</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>核心大词</td><td>高</td><td>selfie stick、phone tripod、tripod、selfie stick tripod</td></tr>
+            <tr><td>属性词</td><td>中</td><td>bluetooth remote、extendable、foldable、telescopic、rotatable、lightweight、monopod、cellphone mount</td></tr>
+            <tr><td>场景 / 长尾词</td><td>中 / 低</td><td>for vlogging、travel、live streaming、group photos、video calls、desktop、tabletop、content creator</td></tr>
+            <tr><td>后台隐性词</td><td>低</td><td>拼写变体 selfy / selphie / extendible、西语词 tripode、同义词 monopod / cradle / grip / holder（词干去重后保留）</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">*热度为经验预估，无真实搜索量数据，仅供词位分配参考。词位分配原则：标题放核心词 + 最强卖点，五点持续渗透转化词，后台词只放与前台逐词去重后的同义词、变体与西语词，不塞任何他人品牌词。</p>
+
+      <h3>1.2 核心 AI Prompt（工作方法展示）</h3>
+      <p><strong>Prompt ①：Listing 文案生成工作流提示词框架</strong>（由本项目实际执行流程提炼，可复用）</p>
+      <pre>角色：你是一名熟悉 Amazon US 规则的跨境电商文案，先判定类目，再动笔。
+输入：产品名、核心卖点清单、参数表（注明哪些是实测值、哪些是示意值）。
+执行顺序（不得跳步）：
+1. 类目判定：确认是否适用 75 字符标题新规，给出判定依据；
+2. 关键词矩阵：按 核心大词 / 属性词 / 场景长尾词 / 后台隐性词 四类列词，
+   热度只许标经验预估，不许编造搜索量数据；
+3. 词位分配：标题=核心词+最强卖点；Highlights 放规格与便携卖点；
+   五点逐条渗透转化词；后台词=与前台逐词去重后的同义词/拼写变体/西语词，
+   空格分隔、无标点、不含任何品牌词；
+4. 合规扫描：促销绝对化词、标题禁用字符（! $ ? _ { } ^ ¬ ¦）、
+   同词重复超过 2 次、第三方商标——逐项报告命中数；
+5. 输出并实测：标题 ≤75 字符、Highlights ≤125 字符、后台词 ≤249 字节，
+   每一项标注实际字符/字节数；参数中的示意值必须保留"示意"口径，不得写成实测。</pre>
+      <p><strong>Prompt ②：产品图生成提示词示例</strong>（V2 多角度版 · 主图1-正面，原文）</p>
+      <pre>Product photo of the same matte black all-in-one smartphone selfie stick tripod
+as the reference image, front view on a pure white background: tripod legs
+spread open, telescopic pole extended, smartphone clamped horizontally at the
+top, small round black Bluetooth remote attached to the handle, product
+centered and fully visible, clean studio lighting, realistic e-commerce
+product photography, no text, no logo, no watermark, no people.</pre>
+      <p class="note">V2 共 8 个角度（正面 / 斜45° / 侧面 / 背面 / 俯视 / 低角度 / 手持 / 斜角特写）均以 V1 主图为参考图锁定同一产品长相，生成后逐张按“角度相符、结构不变形、无乱码文字、无品牌 logo”质检。下方画廊即这 8 张成品图。</p>
+
+      <h3>1.3 最终标准 Listing 成果（脚本实测字符数）</h3>
+      <p><strong>Title（65 / 75 字符）</strong></p>
+      <blockquote><p>Selfie Stick Tripod with Bluetooth Remote, Extendable Phone Stand</p></blockquote>
+      <p><strong>Item Highlights（116 / 125 字符）</strong></p>
+      <blockquote><p>2-in-1 foldable design extends 7.5 to 27.5 in, 360° rotating clamp fits phones 2.6 to 3.7 in wide, pocket-size carry</p></blockquote>
+      <p><strong>Bullet Points（五点原文，字符数为源方案标注）</strong></p>
+      <ol>
+        <li>Switch from handheld selfies to hands-free tripod shots in seconds — the legs fold out from the handle, so one device covers portraits, group photos and full-body framing.（187 字符）</li>
+        <li>The detachable Bluetooth remote pairs in seconds and fires the shutter from up to 33 feet away — no timers, no running back into frame, no asking strangers for help.（183 字符）</li>
+        <li>Telescopic pole extends from 7.5 to 27.5 inches, and the spring clamp rotates 360° between portrait and landscape for short videos, live streams and video calls.（186 字符）</li>
+        <li>Folds down to about 7.5 inches and weighs roughly 5.3 oz — small enough for a pocket, purse or carry-on, built for daily carry and travel days.（168 字符）</li>
+        <li>The adjustable spring clamp grips phones 2.6 to 3.7 inches wide, with or without a slim case; non-slip feet keep the tripod steady on desks and flat ground.（177 字符）</li>
+      </ol>
+      <p><strong>Backend Search Terms（179 / 249 字节，空格分隔、无标点、无品牌词）</strong></p>
+      <blockquote><p>monopod cellphone mount cradle selfy selphie tripode extendible collapsible grip holder mini desktop tabletop vlogging vlogger smartphone creator recording photography accessories</p></blockquote>
+      <p><strong>合规自检结果：</strong>促销/绝对化词 0 命中；标题禁用字符 0 命中；标题同词重复 &gt;2 次：无；后台词未含任何第三方品牌词。</p>
+
+      <h3>1.4 产品图画廊（V2 多角度版，点击放大）</h3>
+      <ul class="gallery">
+        <li><figure>
+          <button type="button" data-lightbox="portfolio-img/front.png" data-caption="主图 1 · 正面"><img src="portfolio-img/front.png" alt="产品正面图：三脚架展开、杆身拉伸、顶部横向夹手机" loading="lazy"></button>
+          <figcaption>主图 1 · 正面</figcaption>
+        </figure></li>
+        <li><figure>
+          <button type="button" data-lightbox="portfolio-img/angle45.png" data-caption="主图 2 · 斜 45 度"><img src="portfolio-img/angle45.png" alt="产品斜45度图：立体展示杆身与手柄蓝牙遥控器" loading="lazy"></button>
+          <figcaption>主图 2 · 斜 45 度</figcaption>
+        </figure></li>
+        <li><figure>
+          <button type="button" data-lightbox="portfolio-img/side.png" data-caption="主图 3 · 侧面"><img src="portfolio-img/side.png" alt="产品侧面图：展示多节伸缩杆身的侧面轮廓" loading="lazy"></button>
+          <figcaption>主图 3 · 侧面</figcaption>
+        </figure></li>
+        <li><figure>
+          <button type="button" data-lightbox="portfolio-img/back.png" data-caption="主图 4 · 背面"><img src="portfolio-img/back.png" alt="产品背面图：展示手机夹背面与杆身结构" loading="lazy"></button>
+          <figcaption>主图 4 · 背面</figcaption>
+        </figure></li>
+        <li><figure>
+          <button type="button" data-lightbox="portfolio-img/top.png" data-caption="主图 5 · 俯视平铺"><img src="portfolio-img/top.png" alt="产品俯视图：折叠状态与可拆蓝牙遥控器、手机平铺展示" loading="lazy"></button>
+          <figcaption>主图 5 · 俯视平铺</figcaption>
+        </figure></li>
+        <li><figure>
+          <button type="button" data-lightbox="portfolio-img/low.png" data-caption="详情图 1 · 低角度"><img src="portfolio-img/low.png" alt="产品低角度图：仰拍展示三脚架站立稳定性" loading="lazy"></button>
+          <figcaption>详情图 1 · 低角度</figcaption>
+        </figure></li>
+        <li><figure>
+          <button type="button" data-lightbox="portfolio-img/hand.png" data-caption="详情图 2 · 手持角度"><img src="portfolio-img/hand.png" alt="产品手持图：手握手柄自拍的使用角度" loading="lazy"></button>
+          <figcaption>详情图 2 · 手持角度</figcaption>
+        </figure></li>
+        <li><figure>
+          <button type="button" data-lightbox="portfolio-img/detail.png" data-caption="详情图 3 · 斜角特写"><img src="portfolio-img/detail.png" alt="产品斜角特写：手机夹与转轴部位的近距离细节" loading="lazy"></button>
+          <figcaption>详情图 3 · 斜角特写</figcaption>
+        </figure></li>
+      </ul>
+
+      <h3>1.5 产品短视频（15 秒版 · 以产品特写组接）</h3>
+      <figure class="p-video">
+        <video controls playsinline preload="metadata" src="portfolio-video.mp4" aria-label="产品短视频：多角度产品特写与卖点字幕"></video>
+        <figcaption>产品短视频 · 竖屏 · 卖点字幕：一体式二合一 / 手机夹横竖可调 / 多节伸缩 / 可拆蓝牙遥控 / 三脚架稳固 / 折叠便携</figcaption>
+      </figure>
+
+      <h3>1.6 价值小结</h3>
+      <ul>
+        <li><strong>AI 提效</strong>：类目判定→关键词矩阵→词位分配→合规扫描→字符实测，一条提示词工作流跑完，全程有据可查、可复用；</li>
+        <li><strong>本地化按美站真实规范执行</strong>：75 字符新规、词干去重、后台词字节管理，拒绝中文式英语直译；</li>
+        <li><strong>文案环节自产自检</strong>，不依赖外包文案，交付前字符数与违禁词均为实测结果而非估算。</li>
+      </ul>
+    </section>
+
+    <!-- ================= 模块 2 ================= -->
+    <section id="module2" aria-labelledby="module2-title">
+      <h2 id="module2-title">模块 2 ｜ 售中 · 多平台运营与库存预警轻量化看板<span class="en">IN-SALE</span></h2>
+      <p>结构：<code>Daily_Log</code>（按日流水）+ <code>Config_Params</code>（参数表）。<strong>所有阈值集中在参数表、公式绝对引用，公式内不写死任何阈值</strong>；所有除法用 IFERROR 包裹。当前参数：ACOS 预警阈值 30%、断货预警 14 天、积压预警 90 天、自然流量占比阈值 30%、安全边际 5%。</p>
+
+      <h3>2.1 表结构（Daily_Log，共 19 列）</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">分组</th><th scope="col">列</th><th scope="col">字段</th></tr>
+          </thead>
+          <tbody>
+            <tr><td rowspan="12">录入列（A–L）</td><td>A</td><td>日期</td></tr>
+            <tr><td>B</td><td>平台/店铺（如 Amazon-US、TikTok Shop-US）</td></tr>
+            <tr><td>C</td><td>SKU</td></tr>
+            <tr><td>D</td><td>商品名称</td></tr>
+            <tr><td>E</td><td>销售额($)</td></tr>
+            <tr><td>F</td><td>广告花费($)</td></tr>
+            <tr><td>G</td><td>广告出单($)</td></tr>
+            <tr><td>H</td><td>现有库存(PCS)</td></tr>
+            <tr><td>I</td><td>近7日日均销量</td></tr>
+            <tr><td>J</td><td>单件成本/COGS($)（本表口径：按当日 COGS 总额录入）</td></tr>
+            <tr><td>K</td><td>其他杂费($)</td></tr>
+            <tr><td>L</td><td>头程 Lead Time(天)（当前为参考列）</td></tr>
+            <tr><td rowspan="7">公式列（M–S）</td><td>M</td><td>ACOS</td></tr>
+            <tr><td>N</td><td>ROAS</td></tr>
+            <tr><td>O</td><td>毛利率</td></tr>
+            <tr><td>P</td><td>盈亏平衡 ACOS</td></tr>
+            <tr><td>Q</td><td>自然流量占比</td></tr>
+            <tr><td>R</td><td>可售天数 DOH</td></tr>
+            <tr><td>S</td><td>复合风险标签</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>2.2 核心计算公式（与工作簿逐字一致，以第 2 行为例）</h3>
+      <pre>M2 · ACOS（有花费无出单时单独标注，绝不显示为 0%）
+=IFERROR(IF(OR(F2="",G2=""),"数据缺失",IF(AND(F2&gt;0,G2=0),"异常：有花费无出单",F2/G2)),"数据缺失")
+
+P2 · 盈亏平衡ACOS（动态预警线 = 毛利率 − 安全边际，随每个 SKU 的毛利率浮动）
+=IFERROR(IF(O2="数据缺失","数据缺失",O2-Config_Params!$B$6),"数据缺失")
+（其中 O2 毛利率 = (E2-J2-K2)/E2，成本项任一缺录即标"数据缺失"）
+
+R2 · 可售天数 DOH（日均销量为 0 时标"无销售数据"，不输出虚假的大天数）
+=IFERROR(IF(OR(H2="",I2=""),"数据缺失",IF(I2=0,"无销售数据",H2/I2)),"数据缺失")
+
+S2 · 复合风险标签（TEXTJOIN 拼接多标签；每个数值比较前先用 ISNUMBER 守卫）
+=TEXTJOIN("、",TRUE,
+   IF(AND(ISNUMBER(M2),ISNUMBER(P2),M2&gt;P2),"广告超标",""),
+   IF(AND(ISNUMBER(M2),ISNUMBER(P2),M2&lt;=P2,M2&gt;Config_Params!$B$2),"广告预警",""),
+   IF(ISNUMBER(SEARCH("有花费无出单",M2&amp;"")),"有花费无出单",""),
+   IF(AND(ISNUMBER(R2),R2&lt;=Config_Params!$B$3),"断货风险",""),
+   IF(AND(ISNUMBER(R2),R2&gt;=Config_Params!$B$4),"积压风险",""),
+   IF(AND(ISNUMBER(Q2),Q2&lt;Config_Params!$B$5),"自然流量不足",""),
+   IF(R2="无销售数据","无销售数据",""),
+   IF(OR(M2="数据缺失",…),"数据缺失",""))   —— 全部为空时显示"正常"</pre>
+      <p class="note">设计要点：<strong>双线并行</strong>——“广告超标”看动态盈亏线（这个品实际亏不亏），“广告预警”看固定阈值线（还没亏、但已越过统一警戒线），先预警、后超标；一个 SKU 可同时挂多个标签，不用嵌套 IF 互相掩盖风险。</p>
+
+      <h3>2.3 条件格式预警逻辑</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">风险标签</th><th scope="col">触发条件</th><th scope="col">标签底色</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>广告超标</td><td>ACOS &gt; 盈亏平衡ACOS（动态线）</td><td>红底</td></tr>
+            <tr><td>有花费无出单</td><td>广告花费 &gt; 0 且广告出单 = 0</td><td>深红底白字</td></tr>
+            <tr><td>断货风险</td><td>DOH ≤ 14 天（参数 B3）</td><td>橙底</td></tr>
+            <tr><td>积压风险</td><td>DOH ≥ 90 天（参数 B4）</td><td>黄底</td></tr>
+            <tr><td>自然流量不足</td><td>自然流量占比 &lt; 30%（参数 B5）</td><td>浅紫底</td></tr>
+            <tr><td>数据缺失</td><td>M–R 任一列为“数据缺失”</td><td>灰底</td></tr>
+            <tr><td>正常</td><td>无任何标签命中</td><td>浅绿底</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">如实备注：Excel 单个单元格只能显示一种底色，复合标签按优先级（广告超标 &gt; 断货 &gt; 积压 &gt; 自然流量不足 &gt; 数据缺失）呈现最高风险色，其余风险由标签文字本身呈现。</p>
+
+      <h3>2.4 模拟数据验算结果（7 行，已用表格软件重算逐行核对）</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">场景</th><th scope="col">关键数据</th><th scope="col">实际算出标签</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>正常经营</td><td>ACOS 16.7%、DOH 30 天</td><td>正常</td></tr>
+            <tr><td>广告烧过头</td><td>ACOS 60% &gt; 盈亏线 30%</td><td>广告超标</td></tr>
+            <tr><td>库存告急</td><td>库存 45 件、日均销量 15</td><td>断货风险</td></tr>
+            <tr><td>库存积压</td><td>DOH 180 天</td><td>积压风险</td></tr>
+            <tr><td>成本数据缺录</td><td>COGS、杂费留空</td><td>数据缺失</td></tr>
+            <tr><td>复合风险</td><td>ACOS 50%、DOH 2 天、自然占比 13.3%</td><td>广告超标、断货风险、自然流量不足</td></tr>
+            <tr><td>花费无回报</td><td>广告花费 $80、广告出单 $0</td><td>有花费无出单</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>2.5 价值小结</h3>
+      <ul>
+        <li><strong>数据敏感度</strong>：不只看销售额，用毛利率推导出每个 SKU 自己的广告盈亏线，低毛利品不会被“统一阈值”误伤或漏报；</li>
+        <li><strong>风险前置</strong>：断货按可售天数提前 14 天报警，广告异常当天出标签，把事后复盘变成事前处置；</li>
+        <li><strong>后续自动化升级路径（方案建议，本阶段未实现）</strong>：数据导入可走 Power Query / 平台 API / 第三方 ERP 三条路径递进，预警推送可用 VBA + 企业微信/飞书 Webhook 或 Power Automate——均为方案层建议，当前交付的是公式预警静态版。</li>
+      </ul>
+    </section>
+
+    <!-- ================= 模块 3 ================= -->
+    <section id="module3" aria-labelledby="module3-title">
+      <h2 id="module3-title">模块 3 ｜ 售后 · 竞品差评溯源分析与客服 SOP<span class="en">AFTER-SALE</span></h2>
+      <p>对象产品：车载磁吸手机支架。工作顺序：差评归因 → 交叉假设 → 分级话术 → 合规红线 → 反哺选品，归因结论先过数据校验再投入动作。</p>
+
+      <h3>3.1 差评原因占比（数据透视）</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">问题分类</th><th scope="col">条数（按 100 条折算）</th><th scope="col">占比</th><th scope="col">典型表现</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>尺寸与预期不符</td><td class="num">40</td><td class="num"><strong>40%</strong></td><td>支架/磁吸面比预期小或大、与手机或出风口不适配、遮挡或松动</td></tr>
+            <tr><td>材质 / 易损问题</td><td class="num">30</td><td class="num"><strong>30%</strong></td><td>夹臂/转轴断裂、磁吸件脱落、胶垫老化、表面磨损</td></tr>
+            <tr><td>说明书不清晰</td><td class="num">20</td><td class="num"><strong>20%</strong></td><td>看不懂安装步骤、装错方向、不会调节角度</td></tr>
+            <tr><td>物流 / 包装损坏</td><td class="num">10</td><td class="num"><strong>10%</strong></td><td>外包装压损、到货缺件、运输磕碰划伤</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">样本口径：竞品 1–3 星差评 100 条归因统计；<strong>样本 ASIN 清单与统计时间区间尚待补齐</strong>，补齐前本节排序与 3.3 的优先级均按“暂定”执行；另需确认噪音评论清洗、改款前后切分与星级分层（100 条样本占比误差可达约 ±10 个百分点，涉及高成本动作前须扩样复核）。</p>
+      <p><strong>交叉归因（示例）：</strong>说明书不清 → 买家装错/用力过猛 → 断裂后被评论为“材质差”，即材质类差评中可能混有说明书根因——所以反哺顺序是先改说明书、再评估供应链升级，避免把说明书问题误判成供应链问题。</p>
+
+      <h3>3.2 英文高频回复模板（选自 12 个分级模板的话术库）</h3>
+      <p>话术库结构：4 个问题分类 × 3 个成本层级（低成本指导/补发 → 中成本部分退款 → 高成本兜底全额退款/换新）= <strong>12 个英文模板</strong>；共同红线：不出现承认产品责任或描述不符的措辞、任何补偿不与评价挂钩、低中高三级内均不提评价话题。</p>
+      <p><strong>模板 A ｜ 说明书类 · 低成本挽留</strong>（买家看不懂说明书、不会安装，产品本身无异常）</p>
+      <blockquote>
+        <p>Hi [Buyer Name],</p>
+        <p>Thank you for your message, and I'm sorry the instructions weren't as clear as they should be — let me walk you through it personally.</p>
+        <p>Here's the short version: 1) Pull the rear hook out until it clicks; 2) Hook it over a vent blade and push the mount body toward the vent until it's flush; 3) Turn the knob clockwise until snug — this locks both the hook and the angle; 4) To adjust the viewing angle, loosen the knob half a turn, tilt, then re-tighten. The whole setup takes under two minutes.</p>
+        <p>I've also attached a step-by-step photo guide, and there's a short installation video I can send you the link to if that's easier. As a thank-you for your patience, here's a [Coupon Code] coupon for your next order. If any step still feels unclear, reply with a photo of where you got stuck and I'll guide you from there.</p>
+        <p>Best regards,<br>[Your Name]<br>Customer Care Team</p>
+      </blockquote>
+      <p><strong>模板 B ｜ 物流类 · 高成本兜底</strong>（到货损坏无法使用、缺件无法补齐，或买家要求全额处理）</p>
+      <blockquote>
+        <p>Hi [Buyer Name],</p>
+        <p>I'm very sorry your order arrived damaged — that's not how we want our products to reach you, and I'll take care of everything from here.</p>
+        <p>I can send a brand-new replacement today with expedited shipping at no cost to you, or, if you prefer, process a full refund to your original payment method. There's no need to return the damaged item in either case.</p>
+        <p>Please reply with "replacement" or "refund" and I'll action it immediately, then follow up with the tracking or refund confirmation as soon as it's available. Thank you for your understanding.</p>
+        <p>Best regards,<br>[Your Name]<br>Customer Care Team</p>
+      </blockquote>
+
+      <h3>3.3 选品 / 产品端改进建议清单（反哺闭环）</h3>
+      <p>测算口径统一为公式逻辑：<strong>预期某类差评占比降幅 = 该类归因占比 × 问题解决覆盖率 × 目标人群触达率</strong>（只给公式与参数取值方法，不预填结论数字）。</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">#</th><th scope="col">优化项</th><th scope="col">对应归因</th><th scope="col">责任方</th><th scope="col">验收周期与复盘指标</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>主图增加尺寸/适配对比图（支架与常见手机、出风口类型同框对比 + 适配/不适配清单图）</td>
+              <td>尺寸与预期不符 40%</td>
+              <td>运营（主图与详情策划）+ 设计（出图）</td>
+              <td>上线后 60 天复盘：尺寸类差评占比、尺寸类退货原因占比、详情页转化率</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>安装视频 + 图文说明书升级（60 秒内安装视频置于详情页与包装内二维码，说明书改为分步大图版）</td>
+              <td>说明书不清晰 20%（并连带影响材质类中的“安装误报”部分，两项单列、不重复计算）</td>
+              <td>运营（内容）+ 设计（说明书排版/视频制作），产品配合确认步骤准确性</td>
+              <td>上线后 60 天复盘：说明书类占比、材质类中“安装期发生”占比、视频扫码/播放率</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>金属 Hook 供应链升级（出风口挂钩升级为金属件，并做破坏性抽检标准）</td>
+              <td>材质/易损 30%（须先扣除“安装误报”占比再测算）</td>
+              <td>供应链（供应商与质检标准）+ 产品（结构确认与成本评估）</td>
+              <td>新批次出货后 90 天复盘：材质类占比、Hook 相关故障条数、批次退货率；<strong>立项前置条件：数据校验通过 + 交叉归因假设验证完成，否则暂缓</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>3.4 合规意识：评价沟通红线</h3>
+      <ul>
+        <li><strong>禁止用任何金钱、折扣、礼品直接交换评价修改或删除</strong>——在亚马逊规则下，索取、诱导或施压买家改/删评价属高压线违规；一切补偿只作为服务补救出现，绝不与评价同函；</li>
+        <li><strong>首选路径只有两条</strong>：站内沟通只解决问题、全程不提评价；需要邀评时只用官方 “Request a Review” 按钮。本知识库另备一个“问题已解决且买家主动表示满意后、限用一次”的中性邀请模板，明确定位为灰区谨慎使用、不回应永不追问。</li>
+      </ul>
+
+      <h3>3.5 价值小结</h3>
+      <ul>
+        <li><strong>客服不止于回复</strong>：先归因、再分级，同类问题用最低够用的成本层级解决，兜底层级明确封顶、不无限谈判；</li>
+        <li><strong>用差评反哺产品</strong>：三项改进各有责任方与复盘周期，客服数据直接变成选品和 Listing 的改进输入——这正是模块 0 闭环的回流段；</li>
+        <li><strong>合规先行</strong>：评价红线写进 SOP 本身，情绪升级另有高危关键词清单与 SLA（高危触发 ≤1 小时人工接管），避免为短期指标伤账户。</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span><a href="index.html">← 返回简历</a></span>
+    <address>刘鑫 · 跨境电商助理实战作品集</address>
+  </footer>
+
+</div>
+
+<!-- 画廊灯箱 -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="产品图大图查看" hidden>
+  <button class="lb-close" type="button" data-lb-close aria-label="关闭大图">×</button>
+  <img id="lightboxImg" src="" alt="">
+  <p class="lb-cap" id="lightboxCap"></p>
+</div>
+
+<script type="module">
+  /* 与简历站同风格：事件委托 + AbortController 生命周期管理 */
+  const controller = new AbortController();
+  const { signal } = controller;
+  addEventListener('pagehide', () => controller.abort(), { once: true });
+
+  const lightbox = document.querySelector('#lightbox');
+  const lbImg = document.querySelector('#lightboxImg');
+  const lbCap = document.querySelector('#lightboxCap');
+  let lastFocus = null;
+
+  const openLb = (src, cap, alt) => {
+    lastFocus = document.activeElement;
+    lbImg.src = src;
+    lbImg.alt = alt || cap || '';
+    lbCap.textContent = cap || '';
+    lightbox.hidden = false;
+    lightbox.classList.add('open');
+    lightbox.querySelector('[data-lb-close]')?.focus();
+  };
+  const closeLb = () => {
+    lightbox.classList.remove('open');
+    lightbox.hidden = true;
+    lbImg.removeAttribute('src');
+    lastFocus?.focus?.();
+  };
+
+  document.addEventListener('click', (event) => {
+    const trigger = event.target.closest('[data-lightbox]');
+    if (trigger) {
+      const img = trigger.querySelector('img');
+      openLb(trigger.dataset.lightbox, trigger.dataset.caption, img?.alt);
+      return;
+    }
+    if (event.target.closest('[data-lb-close]') || event.target === lightbox) closeLb();
+    const navLink = event.target.closest('.site-nav a');
+    if (navLink) {
+      document.querySelectorAll('.site-nav a[aria-current]').forEach(a => a.removeAttribute('aria-current'));
+      navLink.setAttribute('aria-current', 'true');
+    }
+  }, { signal });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && lightbox.classList.contains('open')) closeLb();
+  }, { signal });
+</script>
+</body>
+</html>
