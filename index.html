@@ -108,6 +108,13 @@
   }
   .p-body{ margin:var(--space-xs) 0 0; color:#33322e; }
   .p-body b{ color:var(--ink); }
+  /* 项目视频播放器：竖屏成片，限宽居左 */
+  .p-video{ margin:var(--space-m) 0 0; max-width:20rem; }
+  .p-video video{
+    display:block; width:100%; height:auto; aspect-ratio:9/16;
+    border:0.0625rem solid var(--line); border-radius:0.75em; background:#000;
+  }
+  .p-video figcaption{ margin-top:var(--space-xs); font-size:var(--step--1); color:var(--sub); }
   /* 数据统计：Grid + auto-fit/minmax，零媒体查询自适应 */
   .stats{
     display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
@@ -269,6 +276,10 @@
       <article class="project">
         <header class="p-head"><span class="p-no">03</span><h3>AI 短视频全流程小项目</h3><span class="p-tag">个人项目</span></header>
         <p class="p-body">独立走完选题、脚本、分镜、画面生成、剪辑、配音、配乐、字幕全流程，成片《广州，慢慢入夜》（竖屏 44.5 秒）：以本人实拍的广州照片为蓝本生成 8 个镜头，配开源粤语 TTS 解说与免版权钢琴曲，最终定稿为粤语腔版。</p>
+        <figure class="p-video">
+          <video controls playsinline preload="metadata" poster="poster.jpg" src="guangzhou-night.mp4" aria-label="AI短视频成片《广州，慢慢入夜》"></video>
+          <figcaption>成片《广州，慢慢入夜》 · 粤语解说 · 44.5 秒</figcaption>
+        </figure>
         <div class="stats">
           <div class="stat"><div class="num">44.5 秒</div><div class="lab">竖屏成片</div></div>
           <div class="stat"><div class="num">8 个</div><div class="lab">分镜镜头</div></div>
