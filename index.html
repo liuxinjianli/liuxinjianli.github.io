@@ -354,95 +354,77 @@
   </footer>
 
 </div>
-<script>
-(function(){
-  'use strict';
-  /* 统一用 AbortController 管理本页全部监听的生命周期，页面卸载时一次摘除，避免泄漏 */
-  var controller = new AbortController();
-  var signal = controller.signal;
-  window.addEventListener('pagehide', function(){ controller.abort(); }, { once:true });
+<script type="module">
+  /* 原生 JS 最佳实践要点：
+     - type="module"：默认 defer、默认严格模式、顶层作用域隔离，不再需要 IIFE 包裹
+     - const/let + 箭头函数 + 模板字符串 + dataset，不用 var 和字符串拼接
+     - 事件委托 + AbortController 生命周期管理（见下方）
+     - 异步统一 async/await；剪贴板只用标准 Clipboard API（execCommand 已废弃，不再兜底） */
 
-  /* 简单并发限制器：任务再多也只同时跑 limit 个（用于评分条分批动画等异步队列） */
-  function runWithLimit(tasks, limit, worker){
-    var index = 0, active = 0;
-    return new Promise(function(resolve){
-      function next(){
-        if (index >= tasks.length && active === 0) { resolve(); return; }
-        while (active < limit && index < tasks.length) {
-          (function(task){
-            active++;
-            Promise.resolve(worker(task)).then(function(){ active--; next(); }, function(){ active--; next(); });
-          })(tasks[index++]);
-        }
-      }
-      next();
+  /* 监听生命周期：一个 AbortController 管全页监听，页面隐藏时一次摘除，避免泄漏 */
+  const controller = new AbortController();
+  const { signal } = controller;
+  addEventListener('pagehide', () => controller.abort(), { once: true });
+
+  const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 并发限制器：异步任务排队执行，最多同时跑 limit 个 */
+  async function runWithLimit(tasks, limit, worker) {
+    const queue = [...tasks];
+    const runners = Array.from({ length: Math.min(limit, queue.length) }, async () => {
+      while (queue.length) await worker(queue.shift());
     });
+    await Promise.all(runners);
   }
 
-  /* 事件委托：点击监听只挂在 document 上，用 closest 匹配目标，不给每个子元素单独绑 */
-  document.addEventListener('click', function(event){
-    var copyBtn = event.target.closest('[data-copy]');
+  /* 事件委托：click 只挂在 document 上，closest 匹配目标，不给每个子元素单独绑 */
+  document.addEventListener('click', async (event) => {
+    const copyBtn = event.target.closest('[data-copy]');
     if (copyBtn) {
-      var text = copyBtn.getAttribute('data-copy');
-      var done = function(){
-        var old = copyBtn.textContent;
-        copyBtn.textContent = '已复制';
-        setTimeout(function(){ copyBtn.textContent = old; }, 1600);
-      };
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(done).catch(done);
-      } else {
-        var ta = document.createElement('textarea');
-        ta.value = text; document.body.appendChild(ta); ta.select();
-        try { document.execCommand('copy'); } catch (e) {}
-        document.body.removeChild(ta); done();
-      }
+      let ok = true;
+      try { await navigator.clipboard.writeText(copyBtn.dataset.copy); }
+      catch { ok = false; }
+      const old = copyBtn.textContent;
+      copyBtn.textContent = ok ? '已复制' : '复制失败';
+      setTimeout(() => { copyBtn.textContent = old; }, 1600);
       return;
     }
-    var navLink = event.target.closest('.site-nav a');
+    const navLink = event.target.closest('.site-nav a');
     if (navLink) {
-      document.querySelectorAll('.site-nav a').forEach(function(a){ a.removeAttribute('aria-current'); });
+      document.querySelectorAll('.site-nav a[aria-current]').forEach(a => a.removeAttribute('aria-current'));
       navLink.setAttribute('aria-current', 'true');
     }
-  }, { signal: signal });
+  }, { signal });
 
-  /* 评分条：滚动进入视口后分批填充（并发上限 2，逐条错峰） */
-  var fills = Array.prototype.slice.call(document.querySelectorAll('.score .fill'));
-  if ('IntersectionObserver' in window && fills.length) {
-    var seen = new WeakSet();
-    var io = new IntersectionObserver(function(entries){
-      var fresh = [];
-      entries.forEach(function(en){
-        if (en.isIntersecting && !seen.has(en.target)) { seen.add(en.target); fresh.push(en.target); io.unobserve(en.target); }
-      });
+  /* 评分条：进入视口后分批填充（并发上限 2）；减动效偏好或不支持观察器时直接到位 */
+  const fills = [...document.querySelectorAll('.score .fill')];
+  const showFill = (el) => { el.style.width = `${el.dataset.w}%`; };
+  if (prefersReduced || !('IntersectionObserver' in window)) {
+    fills.forEach(showFill);
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      const fresh = entries
+        .filter(en => en.isIntersecting)
+        .map(en => { io.unobserve(en.target); return en.target; });
       if (fresh.length) {
-        runWithLimit(fresh, 2, function(el){
-          return new Promise(function(res){
-            setTimeout(function(){ el.style.width = el.getAttribute('data-w') + '%'; res(); }, 120);
-          });
-        });
+        runWithLimit(fresh, 2, el => new Promise(res => setTimeout(() => { showFill(el); res(); }, 120)));
       }
     }, { threshold: 0.4 });
-    fills.forEach(function(el){ io.observe(el); });
-  } else {
-    fills.forEach(function(el){ el.style.width = el.getAttribute('data-w') + '%'; });
+    fills.forEach(el => io.observe(el));
   }
 
-  /* 表单：HTML5 原生校验通过后，拼好正文交给邮件应用发送，并给出行内状态反馈 */
-  var form = document.getElementById('contactForm');
-  var status = document.getElementById('formStatus');
-  form.addEventListener('submit', function(event){
+  /* 表单：原生校验通过后用 FormData 取值，拼好正文交给邮件应用发送，并给行内状态反馈 */
+  const form = document.querySelector('#contactForm');
+  const status = document.querySelector('#formStatus');
+  form?.addEventListener('submit', (event) => {
     event.preventDefault();
     if (!form.checkValidity()) { form.reportValidity(); return; }
-    var name = document.getElementById('cf-name').value.trim();
-    var phone = document.getElementById('cf-phone').value.trim();
-    var msg = document.getElementById('cf-msg').value.trim();
-    var subject = encodeURIComponent('简历留言 — ' + name);
-    var body = encodeURIComponent('称呼：' + name + '\n联系电话：' + phone + '\n\n留言：\n' + msg);
+    const data = new FormData(form);
+    const subject = encodeURIComponent(`简历留言 — ${data.get('name')}`);
+    const body = encodeURIComponent(`称呼：${data.get('name')}\n联系电话：${data.get('phone')}\n\n留言：\n${data.get('message')}`);
     status.textContent = '正在打开邮件应用…如未弹出，可直接拨打电话 19209664469 联系。';
-    window.location.href = 'mailto:1214114043@qq.com?subject=' + subject + '&body=' + body;
-  }, { signal: signal });
-})();
+    location.href = `mailto:1214114043@qq.com?subject=${subject}&body=${body}`;
+  }, { signal });
 </script>
 </body>
 </html>
