@@ -6,201 +6,443 @@
 <title>刘鑫 · 个人简历</title>
 <meta name="description" content="刘鑫的个人简历：AI训练师 / 数据标注 / AI视频方向应届毕业生，独立完成通用对话AI训练、图像标注、AI短视频、大模型横向评测四个项目。">
 <style>
+  /* ============ 设计变量与字阶系统（Type Scale，比率 1.25） ============ */
   :root{
     --ink:#1a1a18; --sub:#5c5c56; --line:#e3e3dc; --accent:#33475b; --accent-soft:#eef1f4;
     --bg:#f7f7f4; --paper:#ffffff;
+    /* 字阶：以 1rem 为基准按 1.25 逐级放大，不随意取字号 */
+    --step--1:0.8rem;   /* 12.8px 小字/标签 */
+    --step-0:1rem;      /* 16px 正文 */
+    --step-1:1.25rem;   /* 20px 小标题 */
+    --step-2:1.563rem;  /* 25px 数据数字 */
+    --step-3:1.953rem;  /* 31px */
+    --step-4:2.441rem;  /* 39px 主标题 h1 */
+    /* 间距：外部间距与全局排版统一用 rem */
+    --space-xs:0.5rem; --space-s:0.75rem; --space-m:1rem; --space-l:1.5rem;
+    --space-xl:2.5rem; --space-2xl:3.5rem;
+    /* 弹性回弹过渡：Y 轴控制点 1.56 > 1.0 */
+    --ease-elastic:cubic-bezier(0.34, 1.56, 0.64, 1);
   }
-  *{margin:0;padding:0;box-sizing:border-box;}
+  *,*::before,*::after{ box-sizing:border-box; }
   body{
+    margin:0;
     font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC",-apple-system,"Segoe UI",sans-serif;
-    background:var(--bg); color:var(--ink); line-height:1.75; font-size:15.5px;
+    background:var(--bg); color:var(--ink);
+    font-size:var(--step-0); line-height:1.75;
     -webkit-font-smoothing:antialiased;
   }
-  .page{max-width:780px;margin:0 auto;background:var(--paper);padding:56px 52px 64px;min-height:100vh;}
-  /* 头部 */
-  header{border-bottom:2px solid var(--ink);padding-bottom:26px;}
-  h1{font-size:34px;letter-spacing:.14em;font-weight:700;}
-  .role{margin-top:8px;font-size:16px;color:var(--accent);letter-spacing:.06em;font-weight:600;}
-  .meta{margin-top:16px;display:flex;flex-wrap:wrap;gap:6px 22px;color:var(--sub);font-size:14px;}
-  .meta a{color:var(--accent);text-decoration:none;font-weight:600;}
+  /* flow-root 建立独立格式化上下文，解决外边距塌陷/高度塌陷，不用溢出隐藏的老办法 */
+  .page{
+    display:flow-root;
+    max-width:52rem; margin-inline:auto;
+    background:var(--paper); min-height:100vh;
+    padding:var(--space-xl) var(--space-l) var(--space-2xl);
+  }
+  a{ color:var(--accent); }
+  /* 键盘焦点环：用 :focus-visible，不移除 outline 逻辑 */
+  :focus-visible{ outline:0.1875rem solid var(--accent); outline-offset:0.125rem; border-radius:0.25rem; }
+
+  /* ============ 页眉（全站唯一 h1） ============ */
+  .site-header{ border-bottom:0.125rem solid var(--ink); padding-bottom:var(--space-l); }
+  h1{ font-size:var(--step-4); letter-spacing:0.14em; font-weight:700; margin:0; line-height:1.3; }
+  .role{ margin-top:var(--space-xs); font-size:var(--step-1); color:var(--accent); letter-spacing:0.06em; font-weight:600; }
+  .meta{
+    margin:var(--space-m) 0 0; padding:0; list-style:none;
+    display:flex; flex-wrap:wrap; gap:var(--space-xs) var(--space-l);
+    color:var(--sub); font-size:var(--step--1);
+  }
+  .meta li{ display:flex; align-items:center; gap:0.5em; min-width:0; }
+  .meta svg{ flex:none; color:var(--accent); }
+  .meta a{ font-weight:600; text-decoration:none; }
+  /* 按钮：边框色用 currentColor 继承文字色，内边距/圆角用 em */
   .copy-btn{
-    margin-left:8px;border:1px solid var(--line);background:#fff;color:var(--sub);
-    font-size:12px;padding:1px 9px;border-radius:999px;cursor:pointer;vertical-align:1px;
+    color:var(--sub); background:transparent; cursor:pointer;
+    border:0.0625em solid currentColor; border-radius:999em;
+    font-size:var(--step--1); padding:0.15em 0.9em;
+    transition:color .25s var(--ease-elastic), transform .25s var(--ease-elastic);
   }
-  .copy-btn:hover{border-color:var(--accent);color:var(--accent);}
-  .intro{margin-top:20px;color:#33322e;font-size:15.5px;max-width:42em;}
-  /* 区块 */
-  section{margin-top:38px;}
+  .copy-btn:hover{ color:var(--accent); transform:scale(1.08); }
+  .intro{ margin:var(--space-m) 0 0; max-width:42em; color:#33322e; }
+
+  /* ============ 章节导航 ============ */
+  .site-nav{ margin-top:var(--space-l); }
+  .site-nav ul{
+    margin:0; padding:0; list-style:none;
+    display:flex; flex-wrap:wrap; gap:var(--space-xs);
+  }
+  .site-nav a{
+    display:inline-block; text-decoration:none; color:var(--sub);
+    font-size:var(--step--1); font-weight:600;
+    border:0.0625em solid var(--line); border-radius:999em; padding:0.3em 1em;
+    transition:color .25s var(--ease-elastic), border-color .25s, transform .25s var(--ease-elastic);
+  }
+  .site-nav a:hover{ color:var(--accent); transform:translateY(-0.125rem); }
+  .site-nav a[aria-current="true"]{ color:var(--accent); border-color:currentColor; background:var(--accent-soft); }
+
+  /* ============ 章节与标题阶梯（h2 区块 / h3 条目） ============ */
+  main section{ display:flow-root; margin-top:var(--space-xl); }
   h2{
-    font-size:13px;letter-spacing:.34em;color:var(--accent);font-weight:700;
-    border-bottom:1px solid var(--line);padding-bottom:9px;margin-bottom:20px;
+    font-size:var(--step--1); letter-spacing:0.34em; color:var(--accent); font-weight:700;
+    border-bottom:0.0625rem solid var(--line);
+    padding-bottom:var(--space-xs); margin:0 0 var(--space-m);
   }
-  h2 span{color:var(--sub);letter-spacing:.1em;font-weight:400;margin-left:10px;font-size:12px;}
-  .intent{display:flex;flex-wrap:wrap;gap:8px;}
-  .intent li{list-style:none;border:1px solid var(--line);border-radius:999px;padding:4px 14px;font-size:13.5px;color:#33322e;}
-  .intent li.first{border-color:var(--accent);color:var(--accent);font-weight:600;background:var(--accent-soft);}
-  /* 项目 */
-  .project{padding:20px 0 22px;border-bottom:1px solid var(--line);}
-  .project:last-child{border-bottom:none;}
-  .p-head{display:flex;align-items:baseline;gap:14px;}
-  .p-no{font-size:13px;color:var(--sub);letter-spacing:.15em;font-weight:600;}
-  .p-title{font-size:18.5px;font-weight:700;letter-spacing:.02em;}
-  .p-tag{font-size:12px;color:var(--sub);border:1px solid var(--line);border-radius:999px;padding:0 9px;line-height:1.9;}
-  .p-body{margin-top:10px;color:#33322e;}
-  .p-body b{color:var(--ink);}
-  .stats{display:flex;flex-wrap:wrap;margin-top:14px;border-top:1px dashed var(--line);}
-  .stat{flex:1 1 120px;padding:10px 14px 2px 0;}
-  .stat .num{font-size:21px;font-weight:700;color:var(--accent);letter-spacing:.01em;}
-  .stat .lab{font-size:12.5px;color:var(--sub);}
+  h2 .en{ color:var(--sub); letter-spacing:0.1em; font-weight:400; margin-left:0.625rem; }
+  h3{ font-size:var(--step-1); font-weight:700; letter-spacing:0.02em; margin:0; line-height:1.4; }
+
+  /* 求职意向（标签流） */
+  .intent{ margin:0; padding:0; list-style:none; display:flex; flex-wrap:wrap; gap:var(--space-xs); }
+  .intent li{
+    border:0.0625em solid var(--line); border-radius:999em;
+    padding:0.3em 1em; font-size:var(--step--1); color:#33322e;
+  }
+  .intent li.first{ border-color:var(--accent); color:var(--accent); font-weight:600; background:var(--accent-soft); }
+
+  /* ============ 项目（article 语义条目） ============ */
+  .project{ display:flow-root; padding:var(--space-m) 0 var(--space-l); border-bottom:0.0625rem solid var(--line); }
+  .project:last-child{ border-bottom:none; }
+  .p-head{ display:flex; align-items:baseline; gap:var(--space-s); flex-wrap:wrap; }
+  .p-head .p-no{ font-size:var(--step--1); color:var(--sub); letter-spacing:0.15em; font-weight:600; }
+  .p-head .p-tag{
+    font-size:var(--step--1); color:var(--sub);
+    border:0.0625em solid var(--line); border-radius:999em; padding:0.1em 0.8em;
+  }
+  .p-body{ margin:var(--space-xs) 0 0; color:#33322e; }
+  .p-body b{ color:var(--ink); }
+  /* 数据统计：Grid + auto-fit/minmax，零媒体查询自适应 */
+  .stats{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+    gap:var(--space-s) var(--space-m);
+    margin-top:var(--space-m); padding-top:var(--space-s);
+    border-top:0.0625rem dashed var(--line);
+  }
+  .stat .num{ font-size:var(--step-2); font-weight:700; color:var(--accent); line-height:1.35; }
+  .stat .lab{ font-size:var(--step--1); color:var(--sub); }
   /* 评分条 */
-  .scores{margin-top:14px;max-width:460px;}
-  .score{display:flex;align-items:center;gap:12px;margin-top:7px;font-size:13.5px;}
-  .score .name{width:5.5em;color:#33322e;}
-  .score .bar{flex:1;height:5px;background:var(--accent-soft);border-radius:99px;overflow:hidden;}
-  .score .fill{height:100%;background:var(--accent);border-radius:99px;}
-  .score .val{width:2.6em;text-align:right;font-weight:700;color:var(--accent);}
-  /* 经历与技能 */
-  .row{display:flex;gap:18px;padding:9px 0;border-bottom:1px solid var(--line);}
-  .row:last-child{border-bottom:none;}
-  .row .k{flex:0 0 9.5em;font-weight:600;}
-  .row .v{color:#33322e;}
-  .skills{display:flex;flex-wrap:wrap;gap:8px;}
-  .skills li{list-style:none;background:var(--accent-soft);border-radius:6px;padding:4px 12px;font-size:13.5px;color:#2c3540;}
-  footer{margin-top:46px;border-top:1px solid var(--line);padding-top:16px;color:var(--sub);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
-  @media (max-width:640px){
-    .page{padding:36px 22px 48px;}
-    h1{font-size:28px;}
-    .row{flex-direction:column;gap:2px;}
-    .row .k{flex:none;}
+  .scores{ margin-top:var(--space-m); max-width:30rem; }
+  .score{ display:flex; align-items:center; gap:var(--space-s); margin-top:var(--space-xs); font-size:var(--step--1); }
+  .score .name{ flex:0 0 5.5em; color:#33322e; }
+  .score .bar{ flex:1 1 auto; min-width:0; height:0.3125rem; background:var(--accent-soft); border-radius:999em; }
+  .score .fill{ display:block; height:100%; width:0; background:var(--accent); border-radius:999em; transition:width .9s ease-out; }
+  .score .val{ flex:0 0 2.6em; text-align:right; font-weight:700; color:var(--accent); }
+
+  /* ============ 经历 / 教育（键值行） ============ */
+  .row{ display:flex; flex-direction:column; gap:0.125rem; padding:var(--space-xs) 0; border-bottom:0.0625rem solid var(--line); }
+  .row:last-child{ border-bottom:none; }
+  .row .k{ font-weight:600; }
+  .row .v{ color:#33322e; min-width:0; }
+
+  /* 技能（Grid 自适应） */
+  .skills{
+    margin:0; padding:0; list-style:none;
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 8rem), 1fr));
+    gap:var(--space-xs);
+  }
+  .skills li{ background:var(--accent-soft); border-radius:0.375em; padding:0.35em 0.9em; font-size:var(--step--1); color:#2c3540; }
+
+  /* ============ 联系区（aside + 无障碍表单） ============ */
+  .contact-grid{ display:flow-root; }
+  .contact-aside{
+    background:var(--accent-soft); border-radius:0.75em;
+    padding:1em 1.25em; margin-bottom:var(--space-m); color:#2c3540;
+  }
+  .contact-aside h3{ font-size:var(--step-0); margin-bottom:var(--space-xs); }
+  .contact-aside p{ margin:0; font-size:var(--step--1); }
+  .contact-form .field{ margin-bottom:var(--space-m); }
+  .contact-form label{ display:block; font-weight:600; margin-bottom:0.3em; }
+  .contact-form label .req{ color:#b3261e; }
+  .contact-form input, .contact-form textarea{
+    width:100%; font:inherit; color:var(--ink);
+    background:var(--paper); border:0.0625em solid var(--line); border-radius:0.5em;
+    padding:0.6em 0.8em;
+  }
+  .contact-form input::placeholder, .contact-form textarea::placeholder{ color:var(--sub); }
+  .submit-btn{
+    display:inline-flex; align-items:center; gap:0.5em;
+    background:var(--accent); color:#fff; border:none; cursor:pointer;
+    font:inherit; font-weight:600; border-radius:0.6em; padding:0.7em 1.6em;
+    transition:transform .3s var(--ease-elastic), opacity .2s;
+  }
+  .submit-btn:hover{ transform:scale(1.05); }
+  .submit-btn svg{ color:currentColor; }
+  .form-note{ margin-top:var(--space-s); font-size:var(--step--1); color:var(--sub); }
+  .form-status{ margin-top:var(--space-s); font-size:var(--step--1); color:var(--accent); font-weight:600; }
+
+  /* ============ 页脚 ============ */
+  .site-footer{
+    margin-top:var(--space-xl); border-top:0.0625rem solid var(--line);
+    padding-top:var(--space-m); color:var(--sub); font-size:var(--step--1);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:var(--space-xs) var(--space-m);
+  }
+  .site-footer address{ font-style:normal; }
+
+  /* ============ 平板增强（min-width 逐步增强） ============ */
+  @media (min-width:40rem){
+    .page{ padding:var(--space-2xl) var(--space-xl) var(--space-2xl); }
+    .row{ flex-direction:row; gap:var(--space-m); }
+    .row .k{ flex:0 0 9.5em; }
+    .contact-grid{ display:grid; grid-template-columns:1fr 1.4fr; gap:var(--space-l); align-items:start; }
+    .contact-aside{ margin-bottom:0; }
+  }
+  /* ============ 桌面增强 ============ */
+  @media (min-width:64rem){
+    .page{ padding-inline:var(--space-2xl); }
+    h1{ font-size:var(--step-4); }
+    .site-nav{ position:sticky; top:0; background:var(--paper); padding-block:var(--space-xs); z-index:10; }
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{ transition:none !important; }
   }
   @media (prefers-color-scheme:dark){
-    :root{--ink:#eceae4;--sub:#a3a29a;--line:#33332e;--accent:#9db4cc;--accent-soft:#232a33;--bg:#131311;--paper:#1b1b19;}
-    .intro,.p-body,.row .v{color:#cfcdc6;}
-    .copy-btn{background:transparent;}
-    .intent li{color:#cfcdc6;}
-    .skills li{color:#cfd8e2;}
+    :root{ --ink:#eceae4; --sub:#a3a29a; --line:#33332e; --accent:#9db4cc; --accent-soft:#232a33; --bg:#131311; --paper:#1b1b19; }
+    .intro,.p-body,.row .v,.score .name,.intent li{ color:#cfcdc6; }
+    .skills li,.contact-aside{ color:#cfd8e2; }
+    .contact-form input,.contact-form textarea{ background:transparent; }
+    .submit-btn{ color:#131311; }
   }
 </style>
 </head>
 <body>
 <div class="page">
 
-  <header>
+  <header class="site-header">
     <h1>刘 鑫</h1>
-    <div class="role">AI 训练师 · 数据标注 · AI 视频方向</div>
-    <div class="meta">
-      <span>电话 <a href="tel:19209664469">19209664469</a><button class="copy-btn" id="copyBtn" type="button">复制</button></span>
-      <span>广州 · 白云区嘉禾望岗</span>
-      <span>湖南高速铁路职业技术学院</span>
-    </div>
+    <p class="role">AI 训练师 · 数据标注 · AI 视频方向</p>
+    <ul class="meta">
+      <li>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.5 2.9.7a2 2 0 0 1 1.6 2z"/></svg>
+        电话 <a href="tel:19209664469">19209664469</a>
+        <button class="copy-btn" type="button" data-copy="19209664469">复制</button>
+      </li>
+      <li>广州 · 白云区嘉禾望岗</li>
+      <li>湖南高速铁路职业技术学院</li>
+    </ul>
     <p class="intro">全日制大专应届毕业生，有电子厂实习与跨境物流从业经历。独立完整做过四个 AI 个人项目，覆盖对话数据训练、图像标注、AI 短视频制作与大模型横向评测，求职方向以 AI 岗位优先。</p>
+    <nav class="site-nav" aria-label="章节导航">
+      <ul>
+        <li><a href="#intent">求职意向</a></li>
+        <li><a href="#projects">个人项目</a></li>
+        <li><a href="#experience">经历</a></li>
+        <li><a href="#education">教育</a></li>
+        <li><a href="#skills">技能</a></li>
+        <li><a href="#contact">联系我</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <section>
-    <h2>求职意向<span>INTENT</span></h2>
-    <ul class="intent">
-      <li class="first">AI 训练师</li>
-      <li class="first">数据标注</li>
-      <li class="first">AI 视频 / 剪辑</li>
-      <li>跨境电商助理</li>
-      <li>国内电商助理</li>
-      <li>运营助理</li>
-      <li>工作地点：广州</li>
-    </ul>
-  </section>
+  <main>
+    <section id="intent" aria-labelledby="intent-title">
+      <h2 id="intent-title">求职意向<span class="en">INTENT</span></h2>
+      <ul class="intent">
+        <li class="first">AI 训练师</li>
+        <li class="first">数据标注</li>
+        <li class="first">AI 视频 / 剪辑</li>
+        <li>跨境电商助理</li>
+        <li>国内电商助理</li>
+        <li>运营助理</li>
+        <li>工作地点：广州</li>
+      </ul>
+    </section>
 
-  <section>
-    <h2>个人项目<span>PROJECTS</span></h2>
+    <section id="projects" aria-labelledby="projects-title">
+      <h2 id="projects-title">个人项目<span class="en">PROJECTS</span></h2>
 
-    <article class="project">
-      <div class="p-head"><span class="p-no">01</span><span class="p-title">通用对话 AI 训练小项目</span><span class="p-tag">个人项目</span></div>
-      <p class="p-body">按真实 AI 训练流程独立完成：制定标注手册与角色规则，构建 <b>60 条</b>通用问答数据（合格 53 条、需修改 7 条、不合格 0 条）；用 15 个新问题做有无规则的前后对比，有规则版更好 14 组；对模型回答逐条打分并改进最差的 8 条后复测验证。</p>
-      <div class="stats">
-        <div class="stat"><div class="num">60 条</div><div class="lab">问答数据</div></div>
-        <div class="stat"><div class="num">5.2 → 8.7</div><div class="lab">规则前后平均分</div></div>
-        <div class="stat"><div class="num">15 组</div><div class="lab">新问题前后对比</div></div>
+      <article class="project">
+        <header class="p-head"><span class="p-no">01</span><h3>通用对话 AI 训练小项目</h3><span class="p-tag">个人项目</span></header>
+        <p class="p-body">按真实 AI 训练流程独立完成：制定标注手册与角色规则，构建 <b>60 条</b>通用问答数据（合格 53 条、需修改 7 条、不合格 0 条）；用 15 个新问题做有无规则的前后对比，有规则版更好 14 组；对模型回答逐条打分并改进最差的 8 条后复测验证。</p>
+        <div class="stats">
+          <div class="stat"><div class="num">60 条</div><div class="lab">问答数据</div></div>
+          <div class="stat"><div class="num">5.2 → 8.7</div><div class="lab">规则前后平均分</div></div>
+          <div class="stat"><div class="num">15 组</div><div class="lab">新问题前后对比</div></div>
+        </div>
+      </article>
+
+      <article class="project">
+        <header class="p-head"><span class="p-no">02</span><h3>图像标注小项目</h3><span class="p-tag">个人项目</span></header>
+        <p class="p-body">先定标注规范（整图分类 8 个标签、框选车辆 / 招牌 / 交通信号灯 3 类），再完成 50 张街景图的标注；随后自抽 14 张质检，查出漏框、误框、框不贴边等问题并逐一修正，形成完整的「规范 — 标注 — 质检」闭环。</p>
+        <div class="stats">
+          <div class="stat"><div class="num">50 张</div><div class="lab">标注图片</div></div>
+          <div class="stat"><div class="num">438 个</div><div class="lab">标注框（车辆 375 · 招牌 50 · 信号灯 13）</div></div>
+          <div class="stat"><div class="num">14 张</div><div class="lab">抽检质检</div></div>
+        </div>
+      </article>
+
+      <article class="project">
+        <header class="p-head"><span class="p-no">03</span><h3>AI 短视频全流程小项目</h3><span class="p-tag">个人项目</span></header>
+        <p class="p-body">独立走完选题、脚本、分镜、画面生成、剪辑、配音、配乐、字幕全流程，成片《广州，慢慢入夜》（竖屏 44.5 秒）：以本人实拍的广州照片为蓝本生成 8 个镜头，配开源粤语 TTS 解说与免版权钢琴曲，最终定稿为粤语腔版。</p>
+        <div class="stats">
+          <div class="stat"><div class="num">44.5 秒</div><div class="lab">竖屏成片</div></div>
+          <div class="stat"><div class="num">8 个</div><div class="lab">分镜镜头</div></div>
+          <div class="stat"><div class="num">全流程</div><div class="lab">脚本至成片独立完成</div></div>
+        </div>
+      </article>
+
+      <article class="project">
+        <header class="p-head"><span class="p-no">04</span><h3>大模型横向评测小项目</h3><span class="p-tag">个人项目</span></header>
+        <p class="p-body">以 AI 训练师、大模型评测岗位的实际工作方式，独立完成一次完整评测：自研 <b>20 道题</b>题库，覆盖常识与事实、逻辑推理、文案写作、改写与摘要、指令遵循、多轮对话六个维度，每道题预设标准答案与判定要点；制定四维评分标准（1–5 分），事实硬伤单独标记；统一执行实测、回答全文留档、逐题打分，输出评分表与结论报告。对文心一言完成 20 题全量实测：逻辑推理全满分，常识题对答如流且自动联网核查；文案能用但指令遵循偏弱，曾出现要求一条却给出四条、摘要超字数并自行添加原文没有的信息；多轮对话中预设规则 3 道仅守住 1 道，是其明显短板。全程<b>零事实错误</b>。</p>
+        <div class="scores">
+          <div class="score"><span class="name">逻辑性</span><span class="bar"><span class="fill" data-w="100"></span></span><span class="val">5.00</span></div>
+          <div class="score"><span class="name">准确性</span><span class="bar"><span class="fill" data-w="90.6"></span></span><span class="val">4.53</span></div>
+          <div class="score"><span class="name">文案质量</span><span class="bar"><span class="fill" data-w="77.2"></span></span><span class="val">3.86</span></div>
+          <div class="score"><span class="name">指令遵循</span><span class="bar"><span class="fill" data-w="73.4"></span></span><span class="val">3.67</span></div>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="num">20 道</div><div class="lab">自研题库（六维度）</div></div>
+          <div class="stat"><div class="num">0 次</div><div class="lab">事实错误</div></div>
+          <div class="stat"><div class="num">1 / 3</div><div class="lab">多轮规则守住题数</div></div>
+        </div>
+      </article>
+    </section>
+
+    <section id="experience" aria-labelledby="experience-title">
+      <h2 id="experience-title">实习与工作经历<span class="en">EXPERIENCE</span></h2>
+      <div class="row"><span class="k">深南电路</span><span class="v">实习经历</span></div>
+      <div class="row"><span class="k">深圳跨境物流</span><span class="v">跨境物流从业经历</span></div>
+    </section>
+
+    <section id="education" aria-labelledby="education-title">
+      <h2 id="education-title">教育背景<span class="en">EDUCATION</span></h2>
+      <div class="row"><span class="k">2023 – 2026</span><span class="v">湖南高速铁路职业技术学院 · 铁道机车运用与维护 · 全日制大专</span></div>
+    </section>
+
+    <section id="skills" aria-labelledby="skills-title">
+      <h2 id="skills-title">技能与证书<span class="en">SKILLS</span></h2>
+      <ul class="skills">
+        <li>Office 基础应用</li>
+        <li>AI 工具基础应用</li>
+        <li>AI 剪辑</li>
+        <li>日语 N3</li>
+        <li>摄影 / 航拍</li>
+        <li>C1 驾照</li>
+      </ul>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">联系我<span class="en">CONTACT</span></h2>
+      <div class="contact-grid">
+        <aside class="contact-aside">
+          <h3>直接联系</h3>
+          <p>电话 / 微信同号：<a href="tel:19209664469">19209664469</a><br>所在地：广州 · 白云区嘉禾望岗<br>也可以填写右侧表单，通过邮件应用发送留言。</p>
+        </aside>
+        <form class="contact-form" id="contactForm" action="mailto:1214114043@qq.com" method="post" enctype="text/plain">
+          <div class="field">
+            <label for="cf-name">您的称呼 <span class="req" aria-hidden="true">*</span></label>
+            <input id="cf-name" name="name" type="text" required autocomplete="name" placeholder="如：王经理">
+          </div>
+          <div class="field">
+            <label for="cf-phone">联系电话 <span class="req" aria-hidden="true">*</span></label>
+            <input id="cf-phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel"
+                   pattern="[0-9\- ]{7,15}" title="请输入 7–15 位数字电话号码" placeholder="方便回电的号码">
+          </div>
+          <div class="field">
+            <label for="cf-msg">留言 <span class="req" aria-hidden="true">*</span></label>
+            <textarea id="cf-msg" name="message" rows="4" required placeholder="岗位、公司或面试时间，简单写即可"></textarea>
+          </div>
+          <button class="submit-btn" type="submit">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg>
+            发送留言
+          </button>
+          <p class="form-note">提交后会打开您设备上的邮件应用，内容已预填，确认发送即可。</p>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
       </div>
-    </article>
+    </section>
+  </main>
 
-    <article class="project">
-      <div class="p-head"><span class="p-no">02</span><span class="p-title">图像标注小项目</span><span class="p-tag">个人项目</span></div>
-      <p class="p-body">先定标注规范（整图分类 8 个标签、框选车辆 / 招牌 / 交通信号灯 3 类），再完成 50 张街景图的标注；随后自抽 14 张质检，查出漏框、误框、框不贴边等问题并逐一修正，形成完整的「规范 — 标注 — 质检」闭环。</p>
-      <div class="stats">
-        <div class="stat"><div class="num">50 张</div><div class="lab">标注图片</div></div>
-        <div class="stat"><div class="num">438 个</div><div class="lab">标注框（车辆 375 · 招牌 50 · 信号灯 13）</div></div>
-        <div class="stat"><div class="num">14 张</div><div class="lab">抽检质检</div></div>
-      </div>
-    </article>
-
-    <article class="project">
-      <div class="p-head"><span class="p-no">03</span><span class="p-title">AI 短视频全流程小项目</span><span class="p-tag">个人项目</span></div>
-      <p class="p-body">独立走完选题、脚本、分镜、画面生成、剪辑、配音、配乐、字幕全流程，成片《广州，慢慢入夜》（竖屏 44.5 秒）：以本人实拍的广州照片为蓝本生成 8 个镜头，配开源粤语 TTS 解说与免版权钢琴曲，最终定稿为粤语腔版。</p>
-      <div class="stats">
-        <div class="stat"><div class="num">44.5 秒</div><div class="lab">竖屏成片</div></div>
-        <div class="stat"><div class="num">8 个</div><div class="lab">分镜镜头</div></div>
-        <div class="stat"><div class="num">全流程</div><div class="lab">脚本至成片独立完成</div></div>
-      </div>
-    </article>
-
-    <article class="project">
-      <div class="p-head"><span class="p-no">04</span><span class="p-title">大模型横向评测小项目</span><span class="p-tag">个人项目</span></div>
-      <p class="p-body">以 AI 训练师、大模型评测岗位的实际工作方式，独立完成一次完整评测：自研 <b>20 道题</b>题库，覆盖常识与事实、逻辑推理、文案写作、改写与摘要、指令遵循、多轮对话六个维度，每道题预设标准答案与判定要点；制定四维评分标准（1–5 分），事实硬伤单独标记；统一执行实测、回答全文留档、逐题打分，输出评分表与结论报告。对文心一言完成 20 题全量实测：逻辑推理全满分，常识题对答如流且自动联网核查；文案能用但指令遵循偏弱，曾出现要求一条却给出四条、摘要超字数并自行添加原文没有的信息；多轮对话中预设规则 3 道仅守住 1 道，是其明显短板。全程<b>零事实错误</b>。</p>
-      <div class="scores">
-        <div class="score"><span class="name">逻辑性</span><span class="bar"><span class="fill" style="width:100%"></span></span><span class="val">5.00</span></div>
-        <div class="score"><span class="name">准确性</span><span class="bar"><span class="fill" style="width:90.6%"></span></span><span class="val">4.53</span></div>
-        <div class="score"><span class="name">文案质量</span><span class="bar"><span class="fill" style="width:77.2%"></span></span><span class="val">3.86</span></div>
-        <div class="score"><span class="name">指令遵循</span><span class="bar"><span class="fill" style="width:73.4%"></span></span><span class="val">3.67</span></div>
-      </div>
-      <div class="stats">
-        <div class="stat"><div class="num">20 道</div><div class="lab">自研题库（六维度）</div></div>
-        <div class="stat"><div class="num">0 次</div><div class="lab">事实错误</div></div>
-        <div class="stat"><div class="num">1 / 3</div><div class="lab">多轮规则守住题数</div></div>
-      </div>
-    </article>
-  </section>
-
-  <section>
-    <h2>实习与工作经历<span>EXPERIENCE</span></h2>
-    <div class="row"><div class="k">深南电路</div><div class="v">实习经历</div></div>
-    <div class="row"><div class="k">深圳跨境物流</div><div class="v">跨境物流从业经历</div></div>
-  </section>
-
-  <section>
-    <h2>教育背景<span>EDUCATION</span></h2>
-    <div class="row"><div class="k">2023 – 2026</div><div class="v">湖南高速铁路职业技术学院 · 铁道机车运用与维护 · 全日制大专</div></div>
-  </section>
-
-  <section>
-    <h2>技能与证书<span>SKILLS</span></h2>
-    <ul class="skills">
-      <li>Office 基础应用</li>
-      <li>AI 工具基础应用</li>
-      <li>AI 剪辑</li>
-      <li>日语 N3</li>
-      <li>摄影 / 航拍</li>
-      <li>C1 驾照</li>
-    </ul>
-  </section>
-
-  <footer>
+  <footer class="site-footer">
     <span>刘鑫 · 个人简历</span>
-    <span>电话 19209664469 · 广州</span>
+    <address>电话 19209664469 · 广州</address>
   </footer>
 
 </div>
 <script>
-  document.getElementById('copyBtn').addEventListener('click', function(){
-    var btn = this;
-    function done(){ btn.textContent = '已复制'; setTimeout(function(){ btn.textContent = '复制'; }, 1600); }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText('19209664469').then(done).catch(done);
-    } else {
-      var ta = document.createElement('textarea');
-      ta.value = '19209664469'; document.body.appendChild(ta); ta.select();
-      try { document.execCommand('copy'); } catch(e) {}
-      document.body.removeChild(ta); done();
+(function(){
+  'use strict';
+  /* 统一用 AbortController 管理本页全部监听的生命周期，页面卸载时一次摘除，避免泄漏 */
+  var controller = new AbortController();
+  var signal = controller.signal;
+  window.addEventListener('pagehide', function(){ controller.abort(); }, { once:true });
+
+  /* 简单并发限制器：任务再多也只同时跑 limit 个（用于评分条分批动画等异步队列） */
+  function runWithLimit(tasks, limit, worker){
+    var index = 0, active = 0;
+    return new Promise(function(resolve){
+      function next(){
+        if (index >= tasks.length && active === 0) { resolve(); return; }
+        while (active < limit && index < tasks.length) {
+          (function(task){
+            active++;
+            Promise.resolve(worker(task)).then(function(){ active--; next(); }, function(){ active--; next(); });
+          })(tasks[index++]);
+        }
+      }
+      next();
+    });
+  }
+
+  /* 事件委托：点击监听只挂在 document 上，用 closest 匹配目标，不给每个子元素单独绑 */
+  document.addEventListener('click', function(event){
+    var copyBtn = event.target.closest('[data-copy]');
+    if (copyBtn) {
+      var text = copyBtn.getAttribute('data-copy');
+      var done = function(){
+        var old = copyBtn.textContent;
+        copyBtn.textContent = '已复制';
+        setTimeout(function(){ copyBtn.textContent = old; }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(done);
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta); done();
+      }
+      return;
     }
-  });
+    var navLink = event.target.closest('.site-nav a');
+    if (navLink) {
+      document.querySelectorAll('.site-nav a').forEach(function(a){ a.removeAttribute('aria-current'); });
+      navLink.setAttribute('aria-current', 'true');
+    }
+  }, { signal: signal });
+
+  /* 评分条：滚动进入视口后分批填充（并发上限 2，逐条错峰） */
+  var fills = Array.prototype.slice.call(document.querySelectorAll('.score .fill'));
+  if ('IntersectionObserver' in window && fills.length) {
+    var seen = new WeakSet();
+    var io = new IntersectionObserver(function(entries){
+      var fresh = [];
+      entries.forEach(function(en){
+        if (en.isIntersecting && !seen.has(en.target)) { seen.add(en.target); fresh.push(en.target); io.unobserve(en.target); }
+      });
+      if (fresh.length) {
+        runWithLimit(fresh, 2, function(el){
+          return new Promise(function(res){
+            setTimeout(function(){ el.style.width = el.getAttribute('data-w') + '%'; res(); }, 120);
+          });
+        });
+      }
+    }, { threshold: 0.4 });
+    fills.forEach(function(el){ io.observe(el); });
+  } else {
+    fills.forEach(function(el){ el.style.width = el.getAttribute('data-w') + '%'; });
+  }
+
+  /* 表单：HTML5 原生校验通过后，拼好正文交给邮件应用发送，并给出行内状态反馈 */
+  var form = document.getElementById('contactForm');
+  var status = document.getElementById('formStatus');
+  form.addEventListener('submit', function(event){
+    event.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    var name = document.getElementById('cf-name').value.trim();
+    var phone = document.getElementById('cf-phone').value.trim();
+    var msg = document.getElementById('cf-msg').value.trim();
+    var subject = encodeURIComponent('简历留言 — ' + name);
+    var body = encodeURIComponent('称呼：' + name + '\n联系电话：' + phone + '\n\n留言：\n' + msg);
+    status.textContent = '正在打开邮件应用…如未弹出，可直接拨打电话 19209664469 联系。';
+    window.location.href = 'mailto:1214114043@qq.com?subject=' + subject + '&body=' + body;
+  }, { signal: signal });
+})();
 </script>
 </body>
 </html>
